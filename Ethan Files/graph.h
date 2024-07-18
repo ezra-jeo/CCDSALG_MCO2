@@ -2,15 +2,18 @@
 
 typedef char String[256];
 
-struct adjacentVertexTag {
+struct adjacentVertexTag 
+{
     String                    ID;
     struct adjacentVertexTag* nextAdjacentVertex;
 };
 
 typedef struct adjacentVertexTag AdjacentVertex;
 
-struct vertexTag {
+struct vertexTag 
+{
     String            ID;
+    int               degree;
     AdjacentVertex*   adjacentVertexList;
     struct vertexTag* nextVertex;
 };

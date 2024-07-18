@@ -4,9 +4,12 @@
 #include "graph.c"
 
 int
-main() {
+main() 
+{
+    String vertexID;
     String fileName;
     FILE*  graphFile;
+    FILE*  traversalFile;
     Graph  adjacencyList = NULL;
 
     printf("Input filename: ");
@@ -16,11 +19,21 @@ main() {
 
     if (graphFile == NULL)
         printf("%s not found.", fileName);
-    else {
+    else 
+    {
         adjacencyList = representGraph(graphFile);
-        printAdjacencyList(adjacencyList);
-
         fclose(graphFile);
+
+        printf("Input start vertex for the traversal: ");
+        scanf("%s", vertexID);
+
+        if (searchVertexID(adjacencyList, vertexID) == 0)
+            printf("Vertex %s not found.", vertexID);
+        else {
+            traversalFile = fopen("TRAVERSAL.TXT", "wt");
+            exportVertexList(adjacencyList, traversalFile);
+            fclose(traversalFile);
+        }
     }
 
     return 0;
