@@ -1,3 +1,4 @@
+//#include <stdio.h>
 #include "graph.h"
 
 // For verification
@@ -27,8 +28,8 @@ printAdjacencyList(Graph adjacencyList)
     printf("\n\n");
 }
 
-int
-searchVertexID(Graph adjacencyList, String vertexID) 
+Vertex*
+searchVertex(Graph adjacencyList, String vertexID) 
 {
     Vertex* vertex = adjacencyList;
     int     found = 0;
@@ -37,11 +38,11 @@ searchVertexID(Graph adjacencyList, String vertexID)
     {
         if (strcasecmp(vertexID, vertex->ID) == 0)
             found = 1;
-
-        vertex = vertex->nextVertex;
+        else
+            vertex = vertex->nextVertex;
     }
 
-    return found;
+    return vertex;
 }
 
 void
@@ -51,7 +52,7 @@ exportVertexList(Graph adjacencyList, FILE* traversalFile)
 
     while (vertex != NULL) 
     {
-        fprintf(traversalFile, "%s %d\n", vertex->ID, vertex->degree);
+        fprintf(traversalFile, "%s\t%d\n", vertex->ID, vertex->degree);
         vertex = vertex->nextVertex;
     }
 
@@ -103,6 +104,29 @@ sortAdjacentVertexLists(Graph adjacencyList)
     }
 }
 
+Vertex*
+createGraphVertexNode(String vertexID)
+{
+    Vertex* vertex = (Vertex*) malloc (sizeof (Vertex));
+    strcpy(vertex->ID, vertexID);
+    vertex->adjacentVertexList = NULL;
+    vertex->nextVertex = NULL;
+    vertex->degree = 0;
+    vertex->visitStatus = 0;
+
+    return vertex;
+}
+
+AdjacentVertex*
+createGraphAdjacentVertexNode(String vertexID)
+{
+    AdjacentVertex* adjacentVertex = (AdjacentVertex*) malloc (sizeof (AdjacentVertex));
+    strcpy(adjacentVertex->ID, vertexID);
+    adjacentVertex->nextAdjacentVertex = NULL;
+
+    return adjacentVertex;
+}
+
 Graph
 representGraph(FILE* graphFile) 
 {
@@ -111,7 +135,7 @@ representGraph(FILE* graphFile)
     Vertex*         lastVertex = NULL;
     AdjacentVertex* adjacentVertex = NULL;
     AdjacentVertex* lastAdjacentVertex = NULL;
-    String          ID;
+    String          vertexID;
     int             numVertex;
     int             vertexNum = 0;
     int             end;
@@ -121,49 +145,41 @@ representGraph(FILE* graphFile)
 
     while (fscanf(graphFile, "%c", &dump) && vertexNum < numVertex) 
     {
-        fscanf(graphFile, "%s", ID);
-        vertex = (Vertex*) malloc (sizeof (Vertex));
-        strcpy(vertex->ID, ID);
-        vertex->adjacentVertexList = NULL;
-        vertex->nextVertex = NULL;
-        vertex->degree = 0;
+        fscanf(graphFile, "%s", vertexID);
+        vertex = createGraphVertexNode(vertexID);
         vertexNum++;
 
-        if (adjacencyList == NULL)
+        if (adjacencyList == NULL) 
+        {
             adjacencyList = vertex;
+            lastVertex = vertex;
+        }
         else 
         {
-            lastVertex = adjacencyList;
-
-            while (lastVertex->nextVertex != NULL)
-                lastVertex = lastVertex->nextVertex;
-
             lastVertex->nextVertex = vertex;
+            lastVertex = vertex;
         }
 
         end = 0;
         do
         {
-            fscanf(graphFile, "%s", ID);
+            fscanf(graphFile, "%s", vertexID);
 
-            if (strcmp(ID, "-1") == 0)
+            if (strcmp(vertexID, "-1") == 0)
                 end = 1;
             else 
             {
-                adjacentVertex = (AdjacentVertex*) malloc (sizeof (AdjacentVertex));
-                strcpy(adjacentVertex->ID, ID);
-                adjacentVertex->nextAdjacentVertex = NULL;
+                adjacentVertex = createGraphAdjacentVertexNode(vertexID);
 
-                if (vertex->adjacentVertexList == NULL)
+                if (vertex->adjacentVertexList == NULL) 
+                {
                     vertex->adjacentVertexList = adjacentVertex;
+                    lastAdjacentVertex = adjacentVertex;
+                }
                 else 
                 {
-                    lastAdjacentVertex = vertex->adjacentVertexList;
-
-                    while (lastAdjacentVertex->nextAdjacentVertex != NULL)
-                            lastAdjacentVertex = lastAdjacentVertex->nextAdjacentVertex;
-                        
                     lastAdjacentVertex->nextAdjacentVertex = adjacentVertex;
+                    lastAdjacentVertex = adjacentVertex;
                 }
 
                 vertex->degree++;        
@@ -173,5 +189,6 @@ representGraph(FILE* graphFile)
 
     sortAdjacentVertexLists(adjacencyList);
     printAdjacencyList(adjacencyList);
+    
     return adjacencyList;
 }

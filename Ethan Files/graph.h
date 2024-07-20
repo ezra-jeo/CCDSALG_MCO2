@@ -1,6 +1,4 @@
-// This module file contains the declarations for the attributes of a Graph data structure.
-
-typedef char String[256];
+//typedef char String[256];
 
 struct adjacentVertexTag 
 {
@@ -14,6 +12,7 @@ struct vertexTag
 {
     String            ID;
     int               degree;
+    int               visitStatus;
     AdjacentVertex*   adjacentVertexList;
     struct vertexTag* nextVertex;
 };
