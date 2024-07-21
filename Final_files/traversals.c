@@ -1,25 +1,3 @@
-// typedef char String[256];
-// #include <stdio.h>
-// #include "graph.c"
-// #include "stack-queue-tree.h"
-// #include "stack.c"
-// #include "queue.c"
-
-// For verification
-void
-printSearchTree(Tree searchTree)
-{
-    VertexNode* searchTreeVertex = searchTree;
-
-    printf("\nFor checking search tree:\n");
-
-    while (searchTreeVertex != NULL)
-    {
-        printf("%s ", searchTreeVertex->vertex->ID);
-        searchTreeVertex = searchTreeVertex->nextVertex;
-    }
-    printf("\n\n");
-}
 
 void
 exportSearchTree(Tree searchTree, FILE** traversalFile) 
@@ -77,17 +55,13 @@ breadthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile
     VertexNode*     lastBreadthFirstSearchVertex = NULL;
     Vertex*         vertex = NULL;
     Vertex*         unvisitedVertex = NULL;
-    //AdjacentVertex* adjacentVertex = NULL;
-    // int             i;
 
     enqueue(queue, startVertex);
     startVertex->visitStatus = 1;
-    displayQueue(queue);
 
     while (!isQueueEmpty(queue))
     {
         vertex = dequeue(queue);
-        displayQueue(queue);
         breadthFirstSearchVertex = createTreeNode(vertex);
 
         if (breadthFirstSearchTree == NULL) 
@@ -111,13 +85,11 @@ breadthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile
                 {
                     enqueue(queue, unvisitedVertex);
                     unvisitedVertex->visitStatus = 1;
-                    displayQueue(queue);
                 }
             } while (unvisitedVertex != NULL);
         }
     }
 
-    printSearchTree(breadthFirstSearchTree);
     exportSearchTree(breadthFirstSearchTree, &traversalFile);
 }
 
@@ -132,7 +104,6 @@ depthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile)
     Vertex*     topVertex = NULL;
 
     push(&stack, startVertex);
-    displayStack(stack);
     depthFirstSearchVertex = createTreeNode(startVertex);
     depthFirstSearchTree = depthFirstSearchVertex;
     lastDepthFirstSearchVertex = depthFirstSearchVertex;
@@ -144,7 +115,6 @@ depthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile)
         do
         {
             push(&stack, vertex);
-            displayStack(stack);
             depthFirstSearchVertex = createTreeNode(vertex);
             lastDepthFirstSearchVertex->nextVertex = depthFirstSearchVertex;
             lastDepthFirstSearchVertex = depthFirstSearchVertex; 
@@ -154,7 +124,6 @@ depthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile)
             while (vertex == NULL && !isStackEmpty(stack))
             {
                 pop(&stack);
-                displayStack(stack);
 
                 if (!isStackEmpty(stack)) {
                     topVertex = getTopVertex(stack);
@@ -164,6 +133,5 @@ depthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile)
         } while (!isStackEmpty(stack));
     }
     
-    printSearchTree(depthFirstSearchTree);
     exportSearchTree(depthFirstSearchTree, &traversalFile);
 }

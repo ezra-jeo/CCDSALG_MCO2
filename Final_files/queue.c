@@ -1,5 +1,3 @@
-// #include <stdio.h>
-// #include "stack-queue-tree.h"
 
 Queue
 createQueue() 
@@ -46,8 +44,6 @@ enqueue(Queue queue, Vertex* vertex)
         queue->tailNode->nextVertex = queueVertexNode;
         queue->tailNode = queueVertexNode;
     }
-
-    printf("\nEnqueue: %s", queueVertexNode->vertex->ID);
 }
 
 Vertex*
@@ -62,8 +58,6 @@ dequeue(Queue queue)
         queue->tailNode = NULL;
 
     free(queueVertexNode);
-
-    printf("\nDequeue: %s", vertex->ID);
 
     return vertex;
 }

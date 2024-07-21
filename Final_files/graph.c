@@ -1,32 +1,3 @@
-// #include <stdio.h>
-// #include "graph.h"
-
-// For verification
-void
-printAdjacencyList(Graph adjacencyList) 
-{
-    Vertex*         vertex = adjacencyList;
-    AdjacentVertex* adjacentVertex = NULL;
-
-    printf("\nFor checking adjacency list: ");
-
-    while (vertex != NULL) 
-    {
-        printf("\n%s ", vertex->ID);
-        adjacentVertex = vertex->adjacentVertexList;
-
-        while (adjacentVertex != NULL) 
-        {
-            printf("%s ", adjacentVertex->ID);
-            adjacentVertex = adjacentVertex->nextAdjacentVertex;
-        }
-
-        printf("%d", vertex->degree);
-        vertex = vertex->nextVertex;
-    }    
-
-    printf("\n\n");
-}
 
 Vertex*
 searchVertex(Graph adjacencyList, String vertexID) 
@@ -200,7 +171,6 @@ representGraph(FILE* graphFile)
     }
 
     sortAdjacentVertexLists(adjacencyList);
-    printAdjacencyList(adjacencyList);
 
     return adjacencyList;
 }

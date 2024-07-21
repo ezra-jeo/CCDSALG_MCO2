@@ -1,5 +1,3 @@
-// #include <stdio.h>
-// #include "stack-queue-tree.h"
 
 Stack
 createStack()
@@ -35,7 +33,6 @@ push(Stack* stack, Vertex* vertex)
 
     stackVertexNode->nextVertex = *stack;
     *stack = stackVertexNode;
-    printf("\nPush: %s", stackVertexNode->vertex->ID);
 }
 
 Vertex*
@@ -46,7 +43,6 @@ pop(Stack* stack)
 
     *stack = (*stack)->nextVertex;
     free(stackVertexNode);
-    printf("\nPop: %s", vertex->ID);
 
     return vertex;
 }
@@ -58,25 +54,4 @@ getTopVertex(Stack stack)
     Vertex*     vertex = stackVertexNode->vertex;
 
     return vertex;
-}
-
-// For verification
-void
-displayStack(Stack stack)
-{
-    VertexNode* vertex;
-
-    if (isStackEmpty(stack))
-        printf("\nStack Empty.\n");
-    else 
-    {
-        vertex = stack;
-        printf("\nStack: ");
-        while (vertex != NULL) 
-        {
-            printf("%s ", vertex->vertex->ID);
-            vertex = vertex->nextVertex;
-        }
-        printf("\n");
-    }
 }
