@@ -1,4 +1,3 @@
-// typedef char String[256];
 
 struct adjacentVertexTag 
 {
