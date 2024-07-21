@@ -41,7 +41,8 @@ main()
 
         if (startVertex == NULL)
             printf("Vertex %s not found.", vertexID);
-        else {
+        else 
+        {
             traversalFile = fopen("TRAVERSAL.TXT", "wt");
             exportVertexList(adjacencyList, traversalFile);
             breadthFirstSearch(adjacencyList, startVertex, traversalFile);
