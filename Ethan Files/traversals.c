@@ -77,8 +77,6 @@ breadthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile
     VertexNode*     lastBreadthFirstSearchVertex = NULL;
     Vertex*         vertex = NULL;
     Vertex*         unvisitedVertex = NULL;
-    //AdjacentVertex* adjacentVertex = NULL;
-    // int             i;
 
     enqueue(queue, startVertex);
     startVertex->visitStatus = 1;
@@ -106,9 +104,9 @@ breadthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile
             do
             {
                 unvisitedVertex = getFirstUnvisitedVertex(adjacencyList, vertex->adjacentVertexList);
-
+                
                 if (unvisitedVertex != NULL)
-                {
+                {  
                     enqueue(queue, unvisitedVertex);
                     unvisitedVertex->visitStatus = 1;
                     displayQueue(queue);
@@ -156,7 +154,8 @@ depthFirstSearch(Graph adjacencyList, Vertex* startVertex, FILE* traversalFile)
                 pop(&stack);
                 displayStack(stack);
 
-                if (!isStackEmpty(stack)) {
+                if (!isStackEmpty(stack)) 
+                {
                     topVertex = getTopVertex(stack);
                     vertex = getFirstUnvisitedVertex(adjacencyList, topVertex->adjacentVertexList);
                 }
