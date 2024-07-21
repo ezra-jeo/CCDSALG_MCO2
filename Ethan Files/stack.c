@@ -1,5 +1,5 @@
 // #include <stdio.h>
-#include "stack.h"
+// #include "stack-queue-tree.h"
 
 Stack
 createStack()
@@ -9,46 +9,14 @@ createStack()
     return stack;
 }
 
-Stack
+VertexNode*
 createStackNode(Vertex* vertex)
 {
-    Stack stackVertexNode = (Stack) malloc (sizeof (Stack));
+    VertexNode* stackVertexNode = (VertexNode*) malloc (sizeof (VertexNode));
     stackVertexNode->vertex = vertex;
     stackVertexNode->nextVertex = NULL; 
 
     return stackVertexNode;
-}
-
-void
-push(Stack* stack, Vertex* vertex)
-{
-    Stack stackVertexNode = createStackNode(vertex);
-
-    stackVertexNode->nextVertex = *stack;
-    *stack = stackVertexNode;
-    printf("\nPush: %s", stackVertexNode->vertex->ID);
-}
-
-Vertex*
-pop(Stack* stack)
-{
-    Stack   stackVertexNode = *stack;
-    Vertex* vertex = stackVertexNode->vertex;
-
-    *stack = (*stack)->nextVertex;
-    free(stackVertexNode);
-    printf("\nPop: %s", vertex->ID);
-
-    return vertex;
-}
-
-Vertex*
-getTopVertex(Stack stack)
-{
-    Stack stackVertexNode = stack;
-    Vertex* vertex = stackVertexNode->vertex;
-
-    return vertex;
 }
 
 int
@@ -61,9 +29,42 @@ isStackEmpty(Stack stack)
 }
 
 void
+push(Stack* stack, Vertex* vertex)
+{
+    VertexNode* stackVertexNode = createStackNode(vertex);
+
+    stackVertexNode->nextVertex = *stack;
+    *stack = stackVertexNode;
+    printf("\nPush: %s", stackVertexNode->vertex->ID);
+}
+
+Vertex*
+pop(Stack* stack)
+{
+    VertexNode* stackVertexNode = *stack;
+    Vertex*     vertex = stackVertexNode->vertex;
+
+    *stack = (*stack)->nextVertex;
+    free(stackVertexNode);
+    printf("\nPop: %s", vertex->ID);
+
+    return vertex;
+}
+
+Vertex*
+getTopVertex(Stack stack)
+{
+    VertexNode* stackVertexNode = stack;
+    Vertex*     vertex = stackVertexNode->vertex;
+
+    return vertex;
+}
+
+// For verification
+void
 displayStack(Stack stack)
 {
-    Stack vertex;
+    VertexNode* vertex;
 
     if (isStackEmpty(stack))
         printf("\nStack Empty.\n");

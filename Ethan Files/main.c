@@ -3,10 +3,14 @@ typedef char String[256];
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-//#include "graph.h"
+
+#include "graph.h"
+#include "stack-queue-tree.h"
+
 #include "graph.c"
 #include "stack.c"
-#include "dfs.c"
+#include "queue.c"
+#include "traversals.c"
 
 int
 main() 
@@ -40,6 +44,8 @@ main()
         else {
             traversalFile = fopen("TRAVERSAL.TXT", "wt");
             exportVertexList(adjacencyList, traversalFile);
+            breadthFirstSearch(adjacencyList, startVertex, traversalFile);
+            resetVisitStatus(adjacencyList);
             depthFirstSearch(adjacencyList, startVertex, traversalFile);
             fclose(traversalFile);
         }

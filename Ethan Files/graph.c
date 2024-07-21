@@ -1,5 +1,5 @@
-//#include <stdio.h>
-#include "graph.h"
+// #include <stdio.h>
+// #include "graph.h"
 
 // For verification
 void
@@ -57,6 +57,18 @@ exportVertexList(Graph adjacencyList, FILE* traversalFile)
     }
 
     fprintf(traversalFile, "\n");
+}
+
+void
+resetVisitStatus(Graph adjacencyList)
+{
+    Vertex* vertex = adjacencyList;
+
+    while (vertex != NULL)
+    {
+        vertex->visitStatus = 0;
+        vertex = vertex->nextVertex;
+    }
 }
 
 void
@@ -189,6 +201,6 @@ representGraph(FILE* graphFile)
 
     sortAdjacentVertexLists(adjacencyList);
     printAdjacencyList(adjacencyList);
-    
+
     return adjacencyList;
 }
