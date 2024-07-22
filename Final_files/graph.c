@@ -64,23 +64,26 @@ sortAdjacentVertexLists(Graph adjacencyList)
     {
         startAdjacentVertex = vertex->adjacentVertexList;
 
-        while (startAdjacentVertex->nextAdjacentVertex != NULL)
+        if (startAdjacentVertex != NULL)
         {
-            minAdjacentVertex = startAdjacentVertex;
-            adjacentVertex = startAdjacentVertex->nextAdjacentVertex;
-
-            while (adjacentVertex != NULL)
+            while (startAdjacentVertex->nextAdjacentVertex != NULL)
             {
-                if (strcasecmp(minAdjacentVertex->ID, adjacentVertex->ID) > 0)
-                    minAdjacentVertex = adjacentVertex;
+                minAdjacentVertex = startAdjacentVertex;
+                adjacentVertex = startAdjacentVertex->nextAdjacentVertex;
 
-                adjacentVertex = adjacentVertex->nextAdjacentVertex;
+                while (adjacentVertex != NULL)
+                {
+                    if (strcasecmp(minAdjacentVertex->ID, adjacentVertex->ID) > 0)
+                        minAdjacentVertex = adjacentVertex;
+
+                    adjacentVertex = adjacentVertex->nextAdjacentVertex;
+                }
+
+                if (minAdjacentVertex != startAdjacentVertex)
+                    swapVertexID(minAdjacentVertex, startAdjacentVertex);
+
+                startAdjacentVertex = startAdjacentVertex->nextAdjacentVertex;
             }
-
-            if (minAdjacentVertex != startAdjacentVertex)
-                swapVertexID(minAdjacentVertex, startAdjacentVertex);
-
-            startAdjacentVertex = startAdjacentVertex->nextAdjacentVertex;
         }
 
         vertex = vertex->nextVertex;
