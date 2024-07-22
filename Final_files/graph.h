@@ -1,7 +1,7 @@
 
 struct adjacentVertexTag 
 {
-    String                    ID;
+    String10                  ID;
     struct adjacentVertexTag* nextAdjacentVertex;
 };
 
@@ -9,7 +9,7 @@ typedef struct adjacentVertexTag AdjacentVertex;
 
 struct vertexTag 
 {
-    String            ID;
+    String10          ID;
     int               degree;
     int               visitStatus;
     AdjacentVertex*   adjacentVertexList;

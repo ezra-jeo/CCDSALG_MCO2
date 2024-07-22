@@ -1,6 +1,6 @@
 
 Vertex*
-searchVertex(Graph adjacencyList, String vertexID) 
+searchVertex(Graph adjacencyList, String10 vertexID) 
 {
     Vertex* vertex = adjacencyList;
     int     found = 0;
@@ -23,7 +23,7 @@ exportVertexList(Graph adjacencyList, FILE* traversalFile)
 
     while (vertex != NULL) 
     {
-        fprintf(traversalFile, "%s\t%d\n", vertex->ID, vertex->degree);
+        fprintf(traversalFile, "%-10s %d\n", vertex->ID, vertex->degree);
         vertex = vertex->nextVertex;
     }
 
@@ -45,7 +45,7 @@ resetVisitStatus(Graph adjacencyList)
 void
 swapVertexID(AdjacentVertex* adjacentVertex1, AdjacentVertex* adjacentVertex2)
 {
-    String tempID;
+    String10 tempID;
 
     strcpy(tempID, adjacentVertex2->ID);
     strcpy(adjacentVertex2->ID, adjacentVertex1->ID);
@@ -88,7 +88,7 @@ sortAdjacentVertexLists(Graph adjacencyList)
 }
 
 Vertex*
-createGraphVertexNode(String vertexID)
+createGraphVertexNode(String10 vertexID)
 {
     Vertex* vertex = (Vertex*) malloc (sizeof (Vertex));
     strcpy(vertex->ID, vertexID);
@@ -101,7 +101,7 @@ createGraphVertexNode(String vertexID)
 }
 
 AdjacentVertex*
-createGraphAdjacentVertexNode(String vertexID)
+createGraphAdjacentVertexNode(String10 vertexID)
 {
     AdjacentVertex* adjacentVertex = (AdjacentVertex*) malloc (sizeof (AdjacentVertex));
     strcpy(adjacentVertex->ID, vertexID);
@@ -118,7 +118,7 @@ representGraph(FILE* graphFile)
     Vertex*         lastVertex = NULL;
     AdjacentVertex* adjacentVertex = NULL;
     AdjacentVertex* lastAdjacentVertex = NULL;
-    String          vertexID;
+    String10        vertexID;
     int             numVertex;
     int             vertexNum = 0;
     int             end;

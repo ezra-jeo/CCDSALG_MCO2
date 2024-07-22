@@ -1,4 +1,5 @@
-typedef char String[256];
+typedef char String10[11];
+typedef char String255[256];
 
 #include <stdio.h>
 #include <string.h>
@@ -15,12 +16,12 @@ typedef char String[256];
 int
 main() 
 {
-    String  vertexID;
-    String  fileName;
-    FILE*   graphFile;
-    FILE*   traversalFile;
-    Vertex* startVertex = NULL;
-    Graph   adjacencyList = NULL;
+    String10  vertexID;
+    String255 fileName;
+    FILE*     graphFile;
+    FILE*     traversalFile;
+    Vertex*   startVertex = NULL;
+    Graph     adjacencyList = NULL;
 
     printf("Input filename: ");
     scanf("%s", fileName);
